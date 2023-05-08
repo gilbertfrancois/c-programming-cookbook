@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
     free_ndarray(&array);
     printf("\n");
 
-    printf("---[ allocated on in the heap ]---\n");
+    printf("---[ allocated in the heap ]------\n");
     NDArray *ptr_array = (NDArray *)malloc(sizeof(NDArray));
     alloc_ndarray(ptr_array, rows, cols);
     print_ndarray(ptr_array);
