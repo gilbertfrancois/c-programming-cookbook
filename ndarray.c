@@ -1,9 +1,9 @@
 #include "ndarray.h"
 #include <limits.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 
 void ndarray_init(NDArray *a, int shape[], int ndim) {
     a->ndim = ndim;
@@ -21,28 +21,39 @@ void ndarray_init(NDArray *a, int shape[], int ndim) {
     a->size = size;
     // Compute size in bytes.
     a->bytes = size * sizeof(data_t);
-
     // Alloc and init data buffer.
     a->data = (data_t *)malloc(a->size * sizeof(data_t));
     // Set all bytes to zero, to prevent crappy data.
     // Note that memset works on bytes, not on int.
     memset(a->data, 0, a->size * sizeof(a->data[0]));
-    ndarray_info(a);
+}
+
+void ndarray_free(NDArray *a) {
+    free(a->shape);
+    free(a->strides);
+    free(a->data);
+}
+
+void ndarray_copy(NDArray *dst, NDArray *src) {
+    ndarray_init(dst, src->shape, src->ndim);
+    memcpy(dst->strides, src->strides, src->ndim * sizeof(src->strides[0]));
+    memcpy(dst->shape, src->shape, src->ndim * sizeof(src->shape[0]));
+    memcpy(dst->data, src->data, src->size * sizeof(src->data[0]));
 }
 
 void ndarray_info(NDArray *a) {
     _print_vec(a->shape, a->ndim, "shape");
     printf(", ");
     _print_vec(a->strides, a->ndim, "strides");
-    printf(", size=%lu", a->size);
-    printf(", bytes=%lu", a->bytes);
+    printf(", size=%d", a->size);
+    printf(", bytes=%d", a->bytes);
     printf(", dtype=int");
     printf("\n");
 }
 
 data_t ndarray_max(NDArray *a) {
     data_t max = INT_MIN;
-    for (int i=0; i<a->size; i++) {
+    for (int i = 0; i < a->size; i++) {
         if (a->data[i] > max) {
             max = a->data[i];
         }
@@ -53,7 +64,7 @@ data_t ndarray_max(NDArray *a) {
 int ndarray_argmax(NDArray *a) {
     data_t max = INT_MIN;
     int argmax = -1;
-    for (int i=0; i<a->size; i++) {
+    for (int i = 0; i < a->size; i++) {
         if (a->data[i] > max) {
             max = a->data[i];
             argmax = i;
@@ -77,14 +88,11 @@ void ndarray_print(NDArray *a) {
             for (int j = 0; j < a->shape[1]; j++) {
                 int *s = a->strides;
                 int index = s[0] * i + s[1] * j;
-                // printf("%d ", a->data[index]);
                 printf(fmt2, a->data[index]);
-                a->data[index] = index;
             }
             printf("\n");
         }
-    }
-    else {
+    } else {
         for (int i = 0; i < a->size; i++) {
             printf("%d ", a->data[i]);
         }
