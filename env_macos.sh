@@ -4,10 +4,12 @@
 # Before running cmake, run:
 # source env_macos.sh
 
-export LDFLAGS="-L/usr/local/opt/llvm/lib"
-export CPPFLAGS="-I/usr/local/opt/llvm/include"
-export LDFLAGS="-L/usr/local/opt/llvm/lib/c++ -Wl,-rpath,/usr/local/opt/llvm/lib/c++"
-export export PATH="/usr/local/opt/llvm/bin:$PATH"
-export CC="/usr/local/opt/llvm/bin/clang"
-export CXX="/usr/local/opt/llvm/bin/clang++"
+PREFIX=`brew --prefix`
+
+export LDFLAGS="-L${PREFIX}/opt/llvm/lib"
+export CPPFLAGS="-I${PREFIX}/opt/llvm/include"
+export LDFLAGS="-L${PREFIX}/opt/llvm/lib/c++ -Wl,-rpath,${PREFIX}/opt/llvm/lib/c++"
+export export PATH="${PREFIX}/opt/llvm/bin:$PATH"
+export CC="${PREFIX}/opt/llvm/bin/clang"
+export CXX="${PREFIX}/opt/llvm/bin/clang++"
 
