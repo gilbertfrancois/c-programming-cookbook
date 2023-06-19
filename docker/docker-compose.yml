@@ -1,0 +1,13 @@
+version: '2.3'
+services:
+  clang:
+    build: .
+    command: /bin/bash
+    environment:
+      XAUTHORITY: /.Xauthority
+      DISPLAY: $DISPLAY
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ~/.Xauthority:/.Xauthority
+      - `pwd`/../src:/src
+    network_mode: "host"
