@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.18)
 project(c-programming-cookbook)
 
+add_compile_options(-Wall -Werror)
 
 add_executable(ascii ascii.c)
 add_executable(multiarray multiarray.c)
@@ -10,3 +11,17 @@ add_executable(pointers pointers.c)
 add_executable(types types.c)
 add_executable(malloc utils.c malloc.c)
 add_executable(rotating_cube rotating_cube.c)
+target_link_libraries(rotating_cube m)
+add_executable(signal_handler signal_handler.c)
+
+install(
+  TARGETS ascii
+          multiarray
+          multiarray_struct
+          ndarray
+          pointers
+          types
+          malloc
+          rotating_cube
+          signal_handler
+  DESTINATION ${CMAKE_SOURCE_DIR}/dist)
