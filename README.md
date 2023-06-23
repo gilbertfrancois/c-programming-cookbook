@@ -8,7 +8,7 @@ This repository contains some simple snipplets that can be used as receipes for 
 
 
 
-## Build on the local machine (macOS, Linux)
+## Develop on the local machine (macOS, Linux)
 
 ```sh
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
@@ -20,15 +20,17 @@ All binaries are now installed in the `./dist` folder.
 
 
 
-## Build with Docker
+## Develop with Docker environment
 
-If you want to use the latest stable LLVM compiler and debugger, you can use this docker image, instead of installing it on your machine. Start (and build) the docker container in *detached* mode with:
+If you want to use the latest stable LLVM compiler and debugger, you can use this docker image, instead of installing it on your machine. The idea is that you edit the source files on the host with your favourite editor and run/debug in a docker container, to have a consistent working environment. The whole project folder is mounted inside the docker container in the folder `/workdir`.
+
+Start (and build) the docker container in *detached* mode with:
 
 ```sh
 docker compose up -d
 ```
 
-To build and run the code, just add `docker container exec c-programming-cookbook-dev-1` to your normal build cmake commands:
+To build run and debug the code, just add `docker container exec c-programming-cookbook-dev-1` to your normal build cmake commands:
 
 ```sh
 docker container exec c-programming-cookbook-dev-1 \
@@ -44,6 +46,10 @@ docker container exec c-programming-cookbook-dev-1 \
 # Run your program, e.g. 'ascii'
 docker container exec c-programming-cookbook-dev-1 \
     ./dist/ascii
+    
+# Debug your program:
+docker container exec -it --security-opt=seccomp:unconfined c-programming-cookbook-dev-1 \
+    lldb-16 ./dist/ascii
 ```
 
 Stop the docker with:
@@ -56,7 +62,7 @@ docker compose down
 
 ## Build with Docker, the easy way
 
-Install [just](https://github.com/casey/just) and use the following commands (note that the steps are *just* aliases of the aforementioned commands:
+Install [just](https://github.com/casey/just) and use the following commands (note that the steps are *just* aliases of the aforementioned commands):
 
 ```sh
 # Start the docker
@@ -65,9 +71,9 @@ docker compose up -d
 just init
 just build
 just install
-just run ./dist/ascii   # Or another program ;)
+just run ./dist/ascii     # Or another program ;)
 
-just debug ./dist/ascii # debug with lldb
+just debug ./dist/ascii   # debug with lldb
 
 # Stop the docker when you're done
 docker compose down
