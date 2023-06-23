@@ -92,7 +92,7 @@ docker compose down
 - If you get strange errors from cmake, just delete the `build` and `dist` folders and try again.
 - If you have no permission to edit or delete the content of `build` or `dist` folder after using docker, add `sudo` to your command. The docker is running as root and writes with root permissions to these folders.
 
-- If you try to connect with `lldb` to a binary and get the error `Operation not permitted`, it has likely to do with lack of permissions in Docker [[*](https://stackoverflow.com/questions/19215177/how-to-solve-ptrace-operation-not-permitted-when-trying-to-attach-gdb-to-a-pro)]. Add `--security-opt=seccomp:unconfined` to your docker command or add 
+- If you try to connect with `lldb` to a binary and get the error `Operation not permitted`, it has likely to do with lack of permissions in Docker [[1](https://stackoverflow.com/questions/19215177/how-to-solve-ptrace-operation-not-permitted-when-trying-to-attach-gdb-to-a-pro)] [[2](https://linux-audit.com/protect-ptrace-processes-kernel-yama-ptrace_scope/)]. Add `--security-opt=seccomp:unconfined` to your docker command or add 
 
   ```yaml
   security_opt:
