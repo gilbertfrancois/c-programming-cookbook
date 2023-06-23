@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.18)
 project(c-programming-cookbook)
 
-add_compile_options(-Wall -Werror) 
 
 add_executable(ascii ascii.c)
 add_executable(multiarray multiarray.c)
