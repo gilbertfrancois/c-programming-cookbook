@@ -10,7 +10,7 @@ RUN apt update && apt install -y \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-COPY ./llvm.list /etc/apt/sources.list.d/llvm.list
+COPY ./docker/llvm.list /etc/apt/sources.list.d/llvm.list
 
 RUN wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
 
@@ -22,3 +22,8 @@ RUN apt update && apt install -y \
     clang-format-16 \
     clang-tidy-16 \
     && rm -rf /var/lib/apt/lists/*
+
+ENV CC=clang-16
+ENV CXX=clang++-16
+
+WORKDIR /workdir

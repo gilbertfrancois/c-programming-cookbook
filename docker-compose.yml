@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  dev:
+    build: .
+    command: tail -f /dev/null
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - .:/workdir
+    network_mode: "host"
