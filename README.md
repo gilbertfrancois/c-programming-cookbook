@@ -4,7 +4,11 @@ _Gilbert François Duivesteijn_
 
 ## About
 
-This repository contains some simple snipplets that can be used as receipes for common tasks for programming in C.
+This repository contains some personal notes as running code and snipplets that can be used as receipes for common tasks for programming in C. 
+
+
+
+"Everything must be made as simple as possible, but not one bit simpler." -- *Albert Einstein*, 1962
 
 
 
@@ -20,9 +24,11 @@ All binaries are now installed in the `./dist` folder.
 
 
 
-## Develop with Docker environment
+## Develop with Docker
 
-If you want to use the latest stable LLVM compiler and debugger, you can use this docker image, instead of installing it on your machine. The idea is that you edit the source files on the host with your favourite editor and run/debug in a docker container, to have a consistent working environment. The whole project folder is mounted inside the docker container in the folder `/workdir`.
+*(Tested with docker version 20.10.22)*
+
+If you want to use the latest stable LLVM compiler and debugger, you can use this Docker image, instead of installing the toolchain on your machine. The idea is that you edit the source files with your favourite editor on the host and run/debug in a Docker container, to have a consistent working environment. The whole project folder is mounted inside the docker container in the folder `/workdir`.
 
 Start (and build) the docker container in *detached* mode with:
 
@@ -60,7 +66,7 @@ docker compose down
 
 
 
-## Build with Docker, the easy way
+## Develop with Docker, the easy way
 
 Install [just](https://github.com/casey/just) and use the following commands (note that the steps are *just* aliases of the aforementioned commands):
 
@@ -86,7 +92,7 @@ docker compose down
 - If you get strange errors from cmake, just delete the `build` and `dist` folders and try again.
 - If you have no permission to edit or delete the content of `build` or `dist` folder after using docker, add `sudo` to your command. The docker is running as root and writes with root permissions to these folders.
 
-- If you try to connect with `lldb` to a binary and get the error `Operation not permitted`, it has likely to do with lack of permissions in docker. Add `--security-opt=seccomp:unconfined` to your docker command or add 
+- If you try to connect with `lldb` to a binary and get the error `Operation not permitted`, it has likely to do with lack of permissions in Docker [[*](https://stackoverflow.com/questions/19215177/how-to-solve-ptrace-operation-not-permitted-when-trying-to-attach-gdb-to-a-pro)]. Add `--security-opt=seccomp:unconfined` to your docker command or add 
 
   ```yaml
   security_opt:
