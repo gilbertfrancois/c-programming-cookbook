@@ -4,6 +4,8 @@ project(c-programming-cookbook)
 add_compile_options(-Wall -Werror -pedantic)
 
 add_executable(ascii ascii.c)
+add_executable(fixed_point_arith fixed_point_arith.c)
+add_executable(fixed_point_mat fixed_point_mat.c)
 add_executable(multiarray multiarray.c)
 add_executable(multiarray_struct multiarray_struct.c)
 add_executable(ndarray ndarray.c)
@@ -17,6 +19,8 @@ add_executable(hexbuf hexbuf.c)
 
 install(
   TARGETS ascii
+          fixed_point_arith
+          fixed_point_mat
           multiarray
           multiarray_struct
           ndarray
