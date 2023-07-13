@@ -1,3 +1,6 @@
+default:
+    @just --list
+
 init:
     docker container exec c-programming-cookbook-dev-1 cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
