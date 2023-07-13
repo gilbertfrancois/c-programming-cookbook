@@ -107,7 +107,7 @@ void _print_vec(int *v, int ndim, char *label) {
     printf("%d)", v[ndim - 1]);
 }
 
-void test_2D() {
+void test_2D(void) {
     NDArray *array = (NDArray *)malloc(sizeof(NDArray));
     const int rows = 5;
     const int cols = 5;
@@ -125,7 +125,7 @@ void test_2D() {
     ndarray_print(array);
 }
 
-void test_4D() {
+void test_4D(void) {
     NDArray *array = (NDArray *)malloc(sizeof(NDArray));
     const int samples = 2;
     const int rows = 5;
@@ -150,5 +150,6 @@ void test_4D() {
 
 int main(int argc, char *argv[]) {
     test_2D();
+    test_4D();
     return 0;
 }

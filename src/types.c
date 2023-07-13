@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main() {
-
+int main(int argc, char *argv[]) {
     // typedef char                    __int8_t;
     const unsigned long int i8_1 = sizeof(char);
     // typedef unsigned char           __uint8_t;
@@ -27,7 +26,6 @@ int main() {
     const unsigned long int a6 = sizeof(double);
     const unsigned long int a7 = sizeof(long double);
 
-
     printf("---[ sizeof(type) ]-----------------\n");
     printf("%20s: %lu byte, %lu bit\n", "char", i8_1, i8_1 * 8);
     printf("%20s: %lu byte, %lu bit\n", "unsigned char", i8_2, i8_2 * 8);
@@ -50,10 +48,12 @@ int main() {
 
     printf("---[ sizeof(pointer) ]---------------\n");
     const int p0 = 1;
-    int* p1 = (int*)malloc(sizeof(int));
+    int *p1 = (int *)malloc(sizeof(int));
 
-    printf("%20s: %lu byte, %lu bit, %p\n", "stack pointer", sizeof(&p0), sizeof(&p0)*8, &p0);
-    printf("%20s: %lu byte, %lu bit, %p\n", "heap pointer", sizeof(p1), sizeof(p1)*8, p1);
+    printf("%20s: %lu byte, %lu bit, %p\n", "stack pointer", sizeof(&p0),
+           sizeof(&p0) * 8, (void *)&p0);
+    printf("%20s: %lu byte, %lu bit, %p\n", "heap pointer", sizeof(p1),
+           sizeof(p1) * 8, (void *)p1);
 
     free(p1);
 

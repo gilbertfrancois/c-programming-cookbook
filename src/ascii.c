@@ -3,7 +3,8 @@
 #include <stdio.h>
 #include <stdint.h>
 
-int main() {
+
+int main(int argc, char *argv[]) {
     uint8_t i, j = 0;
     for (j = 1; j < 8; j++) {
         i = 0;
