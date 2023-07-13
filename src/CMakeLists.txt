@@ -10,6 +10,7 @@ add_executable(multiarray multiarray.c)
 add_executable(multiarray_struct multiarray_struct.c)
 add_executable(ndarray ndarray.c)
 add_executable(pointers pointers.c)
+add_executable(float16 float16.c)
 add_executable(types types.c)
 add_executable(malloc utils.c malloc.c)
 add_executable(rotating_cube rotating_cube.c)
@@ -29,5 +30,6 @@ install(
           malloc
           rotating_cube
           signal_handler
+          float16
           hexbuf
   DESTINATION ${CMAKE_SOURCE_DIR}/dist)
