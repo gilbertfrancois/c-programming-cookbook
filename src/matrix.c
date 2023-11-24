@@ -8,9 +8,10 @@
 #include <unistd.h>
 #include <wchar.h>
 
-const int width = 32;
+const int width = 80;
 const int height = 24;
 const int n_permutations = 12;
+const int p_rain = 8;
 
 int *drop_col;
 int *drop_speed;
@@ -24,8 +25,8 @@ int rnd(int max) {
 }
  
 char get_char(void) {
-    char c = (char) rnd(96);
-    c = c + 0x20;
+    char c = (char) rnd(94);
+    c = c + 32;
     return c;
 }
 
@@ -40,8 +41,8 @@ void update_rnd_char(void) {
     }
 }
 
-void update_rain_state() {
-    int col = rnd(3*width);
+void update_rain_state(void) {
+    int col = rnd(p_rain*width);
     if (col < width) {
     int is_raining = drop_col[col];
         if (is_raining == 0) {
@@ -49,7 +50,7 @@ void update_rain_state() {
             drop_speed[col] = rnd(7) + 1;
             drop_speed_counter[col] = 0;
             drop_start[col] = 0;
-            drop_length[col] = width / 2 + rnd(width / 2);
+            drop_length[col] = height / 2 + rnd(height / 2);
         }
     }
 }
@@ -141,7 +142,7 @@ int main(int argc, char* argv[]) {
 
     while (true) {
         mainloop();
-        usleep(50000);
+        usleep(7500);
     }
 
     free(nametable_buffer);
