@@ -63,8 +63,8 @@ void test_mul(void) {
     int16_t b_i = 0;
     printf("---[ test_mul ]---\n");
     for (int i=0; i<10; i++) {
-        a_f = 2.0f*(float)rand() / RAND_MAX - 1.0f;
-        b_f = 2.0f*(float)rand() / RAND_MAX - 1.0f;
+        a_f = 2.0f*(float)rand() / (float)RAND_MAX - 1.0f;
+        b_f = 2.0f*(float)rand() / (float)RAND_MAX - 1.0f;
         float2fixed(a_f, &a_i);
         float2fixed(b_f, &b_i);
         int16_t c_i = mulfp(a_i, b_i);
@@ -89,8 +89,8 @@ void test_div(void) {
     int16_t b_i = 0;
     printf("---[ test_div ]---\n");
     for (int i=0; i<10; i++) {
-        a_f = 2.0f*(float)rand() / RAND_MAX - 1.0f;
-        b_f = 2.0f*(float)rand() / RAND_MAX - 1.0f;
+        a_f = 2.0f*(float)rand() / (float)RAND_MAX - 1.0f;
+        b_f = 2.0f*(float)rand() / (float)RAND_MAX - 1.0f;
         float2fixed(a_f, &a_i);
         float2fixed(b_f, &b_i);
         const int16_t c_i = divfp(a_i, b_i);

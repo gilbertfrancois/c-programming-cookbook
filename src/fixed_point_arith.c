@@ -61,12 +61,12 @@ int main(int argc, char *argv[]) {
     printf("min fraction: %f\n", 1.0f/((1 << frac)-1));
 
     for (int i=0; i<10; i++) {
-        float val = 20*(float)rand() / RAND_MAX - 10;
+        float val = 20*(float)rand() / (float)RAND_MAX - 10;
         test_float2fixed(val, frac, 1.0f/(1 << frac));
     }   
 
     for (int i=0; i<10; i++) {
-        int16_t val = UINT16_MAX*(float)rand() / RAND_MAX - INT16_MAX;
+        int16_t val = UINT16_MAX*(float)rand() / (float)RAND_MAX - (float)INT16_MAX;
         test_fixed2float(val, frac, 1.0f/(1 << frac));
     }   
 
