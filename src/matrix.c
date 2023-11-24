@@ -8,8 +8,9 @@
 #include <unistd.h>
 #include <wchar.h>
 
-const int width = 16;
-const int height = 12;
+const int width = 32;
+const int height = 24;
+const int n_permutations = 12;
 
 int *drop_col;
 int *drop_speed;
@@ -22,6 +23,37 @@ int rnd(int max) {
     return (int)(0.5f + (float)max * rand() / (float)RAND_MAX);
 }
  
+char get_char(void) {
+    char c = (char) rnd(96);
+    c = c + 0x20;
+    return c;
+}
+
+void update_rnd_char(void) {
+    int k = width * height;
+    for (int i=0; i < n_permutations; i++) {
+        int j = rnd(k);
+        if (nametable_buffer[j] != 0x20) {
+            char c = get_char();
+            nametable_buffer[j] = c;
+        }
+    }
+}
+
+void update_rain_state() {
+    int col = rnd(3*width);
+    if (col < width) {
+    int is_raining = drop_col[col];
+        if (is_raining == 0) {
+            drop_col[col] = 1;
+            drop_speed[col] = rnd(7) + 1;
+            drop_speed_counter[col] = 0;
+            drop_start[col] = 0;
+            drop_length[col] = width / 2 + rnd(width / 2);
+        }
+    }
+}
+
 void update_rain_column(int col) {
     int start = drop_start[col];
     int length = drop_length[col];
@@ -38,7 +70,8 @@ void update_rain_column(int col) {
     }
     if (start < height) {
         const unsigned long k = start * width + col;
-        nametable_buffer[k] = col % 10 + 0x30;
+        char c = get_char();
+        nametable_buffer[k] = c;
     }
     if (end > 0) {
         const unsigned long k = (end - 1) * width + col;
@@ -63,18 +96,7 @@ void init(void) {
     }
 }
 
-void mainloop(void) {
-
-    int col = rnd(width);
-    int is_raining = drop_col[col];
-    if (is_raining == 0) {
-        drop_col[col] = 1;
-        drop_speed[col] = rnd(7) + 1;
-        drop_speed_counter[col] = 0;
-        drop_start[col] = 0;
-        drop_length[col] = width / 2 + rnd(width / 2);
-    }
-
+void update_rain_columns(void) {
     for (int i = 0; i < width; i++) {
         if (drop_col[i] == 1) {
             if (drop_speed_counter[i] < drop_speed[i]) {
@@ -85,8 +107,10 @@ void mainloop(void) {
             }
         }
     }
+}
 
-    printf("\x1b[2J"); // Clear screen
+void update_screen(void) {
+    /* printf("\x1b[2J"); // Clear screen */
     printf("\x1b[H"); // Move cursor to home position
     for (int row=0; row < height; row++) {
         for (int col=0; col < width; col++) {
@@ -94,6 +118,14 @@ void mainloop(void) {
         }
         putchar(10);
     }
+}
+
+
+void mainloop(void) {
+    update_rain_state();
+    update_rain_columns();
+    update_rnd_char();
+    update_screen();
 }
 
 int main(int argc, char* argv[]) {
