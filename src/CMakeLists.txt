@@ -17,6 +17,7 @@ add_executable(rotating_cube rotating_cube.c)
 target_link_libraries(rotating_cube m)
 add_executable(signal_handler signal_handler.c)
 add_executable(hexbuf hexbuf.c)
+add_executable(matrix matrix.c)
 
 install(
   TARGETS ascii
@@ -32,4 +33,5 @@ install(
           signal_handler
           float16
           hexbuf
+          matrix
   DESTINATION ${CMAKE_SOURCE_DIR}/dist)
