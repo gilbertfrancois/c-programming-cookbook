@@ -1,6 +1,13 @@
 #include <stdint.h>
+#include <math.h>
 #include <stdio.h>
 
+#define BIN_FMT "%c%c%c%c%c%c%c%c"
+#define BYTE2BIN(byte)                                                         \
+    ((byte)&0x80 ? '1' : '0'), ((byte)&0x40 ? '1' : '0'),                      \
+        ((byte)&0x20 ? '1' : '0'), ((byte)&0x10 ? '1' : '0'),                  \
+        ((byte)&0x08 ? '1' : '0'), ((byte)&0x04 ? '1' : '0'),                  \
+        ((byte)&0x02 ? '1' : '0'), ((byte)&0x01 ? '1' : '0')
 
 /* void bin2f16(uint16_t bin, _Float16 *f16) { */
 /*     uint16_t sign = (bin & 0x8000) >> 15; */
@@ -54,15 +61,50 @@
 /*     } */
 /* } */
 
-int main(int argc, char *argv[]) {
-    uint16_t ipi = 0x4248;
-    /* int16_t ipi = 0x4248; */
+void f32_to_f16(float *src, _Float16 *dst) {
+    float tmp_src = *src;
+    _Float16 tmp_dst = (_Float16)tmp_src;
+    *dst = tmp_dst;
+}
 
-    _Float16 *fpi = (_Float16 *)&ipi;
-    float b = (float)(*fpi);
-    printf("%d\n", ipi);
-    printf("%p\n", (void *)&ipi);
-    printf("%p\n", (void *)fpi);
-    printf("%f\n", b);
+void print_f16(float *val_src, _Float16 *val_dst) {
+    uint16_t *val_dst_ptr = (uint16_t *)val_dst;
+    printf("val_src f32: % 0.6f, ", *val_src);
+    float val_dst_f32 = (float)*val_dst;
+    printf("val_dst f16: % 0.6f, ", val_dst_f32);
+    printf("val_dst dec: % 5d, ", *val_dst_ptr);
+    printf("val_dst hex: 0x%x, ", *val_dst_ptr);
+    printf("val_dst bin: " BIN_FMT " " BIN_FMT "\n",
+           BYTE2BIN(*val_dst_ptr >> 8), BYTE2BIN(*val_dst_ptr));
+}
+
+int main(int argc, char *argv[]) {
+
+    // src value
+    float val_src;
+    // dst value placeholder
+    _Float16 val_dst;
+
+    /* for (int i = 0; i < 18; i++) { */
+    /*     // src value */
+    /*     val_src = 1.4142*pow(2.0, (float)i); */
+    /*     // dst value placeholder */
+    /*     f32_to_f16(&val_src, &val_dst); */
+    /*     print_f16(&val_src, &val_dst); */
+    /* } */
+    val_src = -0.5;
+    f32_to_f16(&val_src, &val_dst);
+    print_f16(&val_src, &val_dst);
+    val_src = -.63118842747981;
+    f32_to_f16(&val_src, &val_dst);
+    print_f16(&val_src, &val_dst);
+    val_src = 2;
+    f32_to_f16(&val_src, &val_dst);
+    print_f16(&val_src, &val_dst);
+    val_src = 16;
+    f32_to_f16(&val_src, &val_dst);
+    print_f16(&val_src, &val_dst);
+
+
     return 0;
 }

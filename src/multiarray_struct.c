@@ -91,7 +91,7 @@ int main(int argc, char *argv[]) {
     copy_ndarray(ptr_src2, ptr_dst2);
     print_ndarray(ptr_dst2);
     // Important: for shallow copies, only free the data arrays from the
-    // src! The dst has no allocated memory for the data arrays of its own. 
+    // src! The dst has no allocated memory for the data arrays of its own.
     free_ndarray(ptr_src2);
     free(ptr_dst2);
     free(ptr_src2);

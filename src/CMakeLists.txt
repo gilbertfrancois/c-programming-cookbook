@@ -13,11 +13,11 @@ add_executable(pointers pointers.c)
 add_executable(float16 float16.c)
 add_executable(types types.c)
 add_executable(malloc utils.c malloc.c)
-add_executable(rotating_cube rotating_cube.c)
-target_link_libraries(rotating_cube m)
 add_executable(signal_handler signal_handler.c)
 add_executable(hexbuf hexbuf.c)
-add_executable(matrix matrix.c)
+add_executable(linked_list linked_list.c)
+add_executable(structs structs.c)
+add_executable(string string.c)
 
 install(
   TARGETS ascii
@@ -29,9 +29,10 @@ install(
           pointers
           types
           malloc
-          rotating_cube
           signal_handler
           float16
           hexbuf
-          matrix
+          linked_list
+          structs
+          string
   DESTINATION ${CMAKE_SOURCE_DIR}/dist)

@@ -1,10 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "utils.h"
+#include <stdio.h>
+#include <string.h>
 
 void message_line(char *message) {
-    // Prevent buffer overflow.
+    /* Prevent buffer overflow. */
     if (strlen(message) > 73) {
         return;
     }
@@ -18,4 +17,3 @@ void message_line(char *message) {
     }
     printf("%s\n\n", line);
 }
-

@@ -1,7 +1,8 @@
+#define _POSIX_C_SOURCE 200809L
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 
 const char STX = 0x02;
 const char ETX = 0x03;
@@ -71,7 +72,7 @@ void print_hex(char *buffer) {
 
 int main(int argc, char **argv) {
     char *buffer = (char *)malloc((MAX_LEN_PAYLOAD + 3) * sizeof(char));
-    memset(buffer, 0, MAX_LEN_PAYLOAD+3);
+    memset(buffer, 0, MAX_LEN_PAYLOAD + 3);
     char *payload = (char *)malloc(MAX_LEN_PAYLOAD * sizeof(char));
     memset(payload, 0, MAX_LEN_PAYLOAD);
     char *entity_id = "801BF7B1124A04";
